@@ -17,13 +17,13 @@ type Recipe struct {
 	Description map[int]string    `json:"description"`
 	Ingredients map[string]string `json:"ingredients"`
 	ID          int               `json:"ID"`
-	ShopLink    string            `json:"shopLink"`
 	Img         string            `json:"img"`
+	UnixTime    int               `json:"unixTime"'`
 }
 
 var mongoClient *mongo.Client
 
-const KEY = "YOURKEY"
+const KEY = "YourKEY"
 
 type Scrapper struct {
 	parseURL  string //Страницу, которую изначально парсим
@@ -84,6 +84,7 @@ func (s *Scrapper) ScrapeRecipe(URL string, wg *sync.WaitGroup) {
 	recipe.Description = description
 	recipe.Img = "/image/stock.png"
 	recipe.ID = rand.Intn(int(time.Now().Unix()))
+	recipe.UnixTime = int(time.Now().Unix())
 	s.writeRecipe(recipe, wg)
 
 }
